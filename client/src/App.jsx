@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Login, Register } from './index.js'
 
 function App() {
     const [data, setData] = useState(null);
@@ -12,12 +14,16 @@ function App() {
 
     return (
         <div>
-            <h1>API Data:</h1>
+            {/* <h1>API Data:</h1>
             {data ? (
                 <pre>{JSON.stringify(data, null, 2)}</pre>
             ) : (
                 <p>Loading...</p>
-            )}
+            )} */}
+            <Routes>
+            <Route path='/Login' element={<Login />} />
+            <Route path='/Register' element={<Register />}/>
+            </Routes>
         </div>
     );
 }
