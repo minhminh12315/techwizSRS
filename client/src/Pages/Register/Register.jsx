@@ -2,13 +2,44 @@ import { useState } from 'react';
 import './Register.scss';
 import login from '../../assets/login.jpg';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
-
-
+import axios from 'axios';
+import { redirect } from 'react-router-dom';
+import Home from '../User/Home';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
+
+    const submitRegister = () => {
+        console.log("Register");
+        axios.post('http://localhost:8000/api/register', {
+            name: name,
+            email: email,
+            password: password,
+            password_confirmation: confirmPassword,
+            phone: phone,
+            address: address
+        })
+        .then(response => {
+            console.log('Register successful:', response.data);
+
+            navigate('/')
+        })
+        .catch(error => {
+            console.error('There was an error registing in:', error);
+        });
+    }
+
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -33,10 +64,21 @@ const Register = () => {
                     </div>
                     <div className='form-body'>
                         <div className='input-group'>
+                            <label>Name Address</label>
+                            <input
+                                type="text"
+                                name="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className='input-group'>
                             <label>Email Address</label>
                             <input
                                 type="text"
                                 name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
                         <div className='input-group'>
@@ -45,6 +87,8 @@ const Register = () => {
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                                 <span onClick={togglePasswordVisibility} className="eye-icon">
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -57,6 +101,8 @@ const Register = () => {
                                 <input
                                     type={showConfirmPassword ? "text" : "password"}
                                     name="confirmPassword"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
                                 <span onClick={toggleConfirmPasswordVisibility} className="eye-icon">
                                     {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
@@ -68,6 +114,8 @@ const Register = () => {
                             <input
                                 type="text"
                                 name="phone"
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
                             />
                         </div>
                         <div className='input-group'>
@@ -75,20 +123,14 @@ const Register = () => {
                             <input
                                 type="text"
                                 name="address"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
                             />
-                        </div>
-                        <div className='input-group consent-group'>
-                            <input
-                                type="checkbox"
-                                name="consent"
-                                id="consent-checkbox"
-                            />
-                            <label htmlFor="consent-checkbox">
-                                I consent to RIMOWA processing my personal data in order to send me personalized marketing material and to share my personal data with RIMOWA’s marketing partners in accordance with the consent form and the privacy policy.
-                            </label>
                         </div>
                         <div className='submit-button'>
-                            <button>Create Account</button>
+                            <button
+                            onClick={submitRegister}
+                            >Create Account</button>
                         </div>
                     </div>
                     <div className='form-footer'>

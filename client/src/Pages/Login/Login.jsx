@@ -4,15 +4,39 @@ import login from '../../assets/login.jpg';
 import tick from '../../assets/tick.png';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
+
+    const navigate = useNavigate();
     
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+
+    // const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [password, setPassword] = useState('');
+
+    const submitSignIn = () => {
+        console.log("Sign In");
+        axios.post('http://localhost:8000/api/login', {
+            name: name,
+            password: password
+        })
+        .then(response => {
+            console.log('Login successful:', response.data);
+            
+            navigate('/')
+        })
+        .catch(error => {
+            console.error('There was an error logging in:', error);
+        });
+    }
 
     return (
         <div className='login-container'>
@@ -29,18 +53,31 @@ const Login = () => {
                     </div>
                     <div className='form-body'>
                         <div className='input-group'>
+                            <label>Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                onChange={(e) => setName(e.target.value)}
+                                value={name}
+                            />
+                        </div>
+                        {/* <div className='input-group'>
                             <label>Email Address</label>
                             <input
                                 type="text"
                                 name="email"
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
                             />
-                        </div>
+                        </div> */}
                         <div className='input-group'>
                             <label>Password</label>
                             <div className='password-wrapper'>
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="password"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={password}
                                 />
                                 <span onClick={togglePasswordVisibility} className="eye-icon">
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -49,7 +86,7 @@ const Login = () => {
                             <a href="#">Forgot your password?</a>
                         </div>
                         <div className='submit-button'>
-                            <button>Sign in</button>
+                            <button onClick={submitSignIn}>Sign in</button>
                         </div>
                     </div>
                 </div>
