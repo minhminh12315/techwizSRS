@@ -1,0 +1,79 @@
+.appointment_title_container{
+    background-color: #000000;
+    height: 50vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.appointment_title_container span{
+    font-size: 1.5rem;
+}
+.appointment_title_container h1{
+    color: #FFFFFF;
+    font-size: 6rem;
+}
+
+.form_appointment_container{
+    margin-top: 8rem;
+    margin-bottom: 8rem;
+}
+.form_appointment_title{
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+}
+
+.btn_showTime{
+    margin-top: 2rem;
+    padding: 0.75rem 2.25rem;
+    background-color: transparent;
+    color: #7b5f43;
+    border: 2px solid #7b5f43;
+    cursor: pointer;
+    transition: 0.3s ease-in;
+}
+
+.btn_showTime:hover{
+    background-color: #7b5f43;
+    color: #ffffff;
+}
+.form_appointment label{
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form_appointment .form_control_custom{
+    width: 100%;
+    border: 1px solid #dee2e6;
+    padding: 0.5rem 1rem;
+}
+
+.form_appointment .form_control_custom:focus{
+    border-color: #495057;
+    outline: none;
+}
+@media screen  and (max-width: 991px) {
+    .appointment_title_container span{
+        font-size: 1.25rem;
+    }
+    .appointment_title_container h1{
+        font-size: 4.5rem;
+    }
+    .form_appointment_title{
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+}
+@media screen  and (max-width: 767px) {
+    .appointment_title_container span{
+        font-size: 1rem;
+    }
+    .appointment_title_container h1{
+        font-size: 4rem;
+    }
+    .form_appointment_title{
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }   
+}

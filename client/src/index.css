@@ -1,12 +1,38 @@
 @font-face {
-    font-family: 'RimowaGrotesk-Light';
-    src: url('/fonts/RimowaGrotesk-Light.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: 'RimowaGrotesk-Light';
+  src: url('/fonts/RimowaGrotesk-Light.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  color: #333;
+}
+
+ul{
+  list-style-type: none;
 }
