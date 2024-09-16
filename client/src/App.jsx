@@ -55,6 +55,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/setting" element={<Setting />} />
         </Routes>
+        <Footer />
       </UserContext.Provider>
     </>
   );

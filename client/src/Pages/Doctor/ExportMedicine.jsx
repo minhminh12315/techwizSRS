@@ -89,44 +89,63 @@ const ExportMedicine = () => {
   };
 
   return (
-    <>
+    <div className="container mt-5 mb-5">
       <h1>Export Medicine</h1>
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th>Medicine Name</th>
-            <th>Quantity</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {medicineList.map((medicine, index) => (
-            <tr key={index}>
-              <td>{medicine.name}</td>
-              <td>
-                <input
-                  type="number"
-                  value={exportedMedicineQuantity[index] || 0}
-                  onChange={(e) => {
-                    const newQuantity = [...exportedMedicineQuantity];
-                    newQuantity[index] = e.target.value;
-                    setExportedMedicineQuantity(newQuantity);
-                  }}
-                />
-              </td>
-              <td>
-                <button onClick={() => handleExport(medicine, index)}>
-                  Add
-                </button>
-              </td>
+      <div className="table-responsive">
+        <table className="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th>Medicine Name</th>
+              <th>Quantity</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {medicineList.map((medicine, index) => (
+              <tr key={index}>
+                <td>{medicine.name}</td>
+                <td>
+                  <div className="quantity_container">
+                    <button
+                      className="btn_minus"
+                      onClick={() => {
+                        const newQuantity = [...exportedMedicineQuantity];
+                        // Nếu chưa có số lượng cho index hiện tại, đặt mặc định là 0
+                        newQuantity[index] = (newQuantity[index] || 0) - 1;
+                        newQuantity[index] = Math.max(0, newQuantity[index]); // Không cho phép số lượng < 0
+                        setExportedMedicineQuantity(newQuantity);
+                      }}
+                    >
+                      -
+                    </button>
+                    {exportedMedicineQuantity[index] || 0} {/* Hiển thị số lượng hiện tại hoặc 0 nếu chưa có */}
+                    <button
+                      className="btn_plus"
+                      onClick={() => {
+                        const newQuantity = [...exportedMedicineQuantity];
+                        newQuantity[index] = (newQuantity[index] || 0) + 1;
+                        setExportedMedicineQuantity(newQuantity);
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
+                </td>
 
-      <h2>Exported Medicines</h2>
+                <td>
+                  <button onClick={() => handleExport(medicine, index)} className="btn_secondary_custom">
+                    Add
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h1>Exported Medicines</h1>
       {exportedMedicine.length > 0 ? (
-        <table className="table table-bordered">
+        <table className="table table-bordered mt-5">
           <thead>
             <tr>
               <th>Medicine Name</th>
@@ -139,17 +158,19 @@ const ExportMedicine = () => {
               <tr key={index}>
                 <td>{medicine.name}</td>
                 <td className="d-flex justify-content-between">
-                  <button onClick={() => handleDecreaseQuantity(index)}>
-                    -
-                  </button>
-                  {medicine.quantity}
-                  <button onClick={() => handleIncreaseQuantity(index)}>
-                    +
-                  </button>
+                  <div className="quantity_container">
+                    <button className="btn_minus" onClick={() => handleDecreaseQuantity(index)}>
+                      -
+                    </button>
+                    {medicine.quantity}
+                    <button className="btn_plus" onClick={() => handleIncreaseQuantity(index)}>
+                      +
+                    </button>
+                  </div>
                 </td>
                 <td>
-                  <button onClick={() => handleRemoveMedicine(index)}>
-                    Remove
+                  <button className="btn_delete" onClick={() => handleRemoveMedicine(index)}>
+                    <i class="fa-solid fa-trash"></i>
                   </button>
                 </td>
               </tr>
@@ -166,10 +187,11 @@ const ExportMedicine = () => {
           console.log("Exporting Medicines:", exportedMedicine);
           // Gửi dữ liệu tới API hoặc xử lý lưu trữ tại đây
         }}
+        className="btn_primary_custom"
       >
         Export
       </button>
-    </>
+    </div>
   );
 };
 
