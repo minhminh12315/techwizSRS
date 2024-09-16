@@ -4,6 +4,7 @@ import { Login, Register } from './index.js'
 import Home from './Pages/User/Home.jsx';
 import './assets/css/minh.css';
 import Appoiments from './Pages/User/Appoiments.jsx';
+import Contact from './Pages/User/Contact.jsx';
 function App() {
     const [data, setData] = useState(null);
 
@@ -21,7 +22,7 @@ function App() {
                 <Route path='/Register' element={<Register />}/>
                 <Route path='/' element={<Home />} />
                 <Route path='/appointment' element={<Appoiments />} />
-                
+                <Route path='/contact' element={<Contact />} />
             </Routes>
         </>
     );

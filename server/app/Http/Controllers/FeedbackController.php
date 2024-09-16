@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Feedback;
 use App\Http\Requests\StoreFeedbackRequest;
 use App\Http\Requests\UpdateFeedbackRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FeedbackController extends Controller
 {
@@ -27,9 +29,26 @@ class FeedbackController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFeedbackRequest $request)
+    public function store(Request $request)
     {
-        //
+        try {
+            $fields = $request->validate([
+                'name' => 'required|string',
+                'email' => 'required|email',
+                'phone' => 'required|string',
+                'message' => 'required|string'
+            ]);
+        
+            $feedback = Feedback::create($fields);
+        
+            return response()->json($feedback, 201);
+        } catch (\Exception $e) {
+            // Log the error message
+            Log::error('Error creating feedback: ' . $e->getMessage());
+        
+            // Return a JSON response with a 500 status code
+            return response()->json(['error' => 'An error occurred while creating the feedback.'], 500);
+        }
     }
 
     /**
