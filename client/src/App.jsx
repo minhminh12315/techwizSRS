@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import { Login, Register, Header } from "./index.js";
-import Home from "./Pages/User/Home.jsx";
-import "./assets/css/minh.css";
-import Appoiments from "./Pages/User/Appoiments.jsx";
-import Contact from "./Pages/User/Contact.jsx";
+import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Login, Register, Header } from './index.js'
+import Home from './Pages/User/Home.jsx';
+import './assets/css/minh.css';
+import './assets/css/an.css';
+import Appoiments from './Pages/User/Appoiments.jsx';
+import Contact from './Pages/User/Contact.jsx';
 import UserContext from "./Context/UserContext.js";
-
+import Footer from './Components/Footer/Footer.jsx';
 function App() {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);

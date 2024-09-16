@@ -42,92 +42,92 @@ const Appoiments = () => {
 
   return (
     <>
-      <div className="container">
-        <h1 className="text-center">Appointments</h1>
-        <h3>Make an Appointment</h3>
-        <form onSubmit={handleSubmit} className="container mt-4">
-          <div className="row">
-            <div className="col-md-6">
-              <div className="form-group">
-                <label htmlFor="name">Name:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Email:</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="phone">Phone:</label>
-                <input
-                  type="tel"
-                  className="form-control"
-                  id="phone"
-                  name="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
+      <div className="appointment_title_container">
+        <div className="d-flex justify-content-center align-items-center flex-column gap-4">
+          <div>
+            <span className="text-secondary">HOME - </span>
+            <span className="text-white">APPOINTMENT</span>
+          </div>
+          <h1 className="text-center">Appointment</h1>
+        </div>
+      </div>
+      <div className="container form_appointment_container">
+        <div className="form_appointment_title">Make an Appointment</div>
+        <form onSubmit={handleSubmit} className="container mt-4 form_appointment">
+          <div className="row g-3">
+            <div className="form-group col-md-4 col-12">
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                className="form_control_custom"
+                id="name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
-            <div className="col-md-6">
-              <div className="form-group">
-                <label htmlFor="date">Date:</label>
-                <input
-                  type="date"
-                  className="form-control"
-                  id="date"
-                  name="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="time">Time:</label>
-                <input
-                  type="time"
-                  className="form-control"
-                  id="time"
-                  name="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="doctors">Doctors:</label>
-                <select
-                  className="form-control"
-                  id="doctors"
-                  value={doctor}
-                  onChange={(e) => setDoctor(e.target.value)}
-                >
-                  {doctors.map((doctor) => (
-                    <option key={doctor.id} value={doctor.id}>
-                      {doctor.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
-                <input
-                  type="submit"
-                  className="btn btn-primary mt-4"
-                  value="Submit"
-                />
-              </div>
+            <div className="form-group col-md-4 col-12">
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                className="form_control_custom"
+                id="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
+            <div className="form-group col-md-4 col-12">
+              <label htmlFor="phone">Phone:</label>
+              <input
+                type="tel"
+                className="form_control_custom"
+                id="phone"
+                name="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            <div className="form-group col-md-6 col-12">
+              <label htmlFor="date">Date:</label>
+              <input
+                type="date"
+                className="form_control_custom"
+                id="date"
+                name="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </div>
+            <div className="form-group col-md-6 col-12">
+              <label htmlFor="time">Time:</label>
+              <input
+                type="time"
+                className="form_control_custom"
+                id="time"
+                name="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+              />
+            </div>
+            <div className="form-group col-12">
+              <label htmlFor="doctors">Doctors:</label>
+              <select
+                className="form_control_custom"
+                id="doctors"
+                value={doctor}
+                onChange={(e) => setDoctor(e.target.value)}
+              >
+                {doctors.map((doctor) => (
+                  <option key={doctor.id} value={doctor.id}>
+                    {doctor.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="w-100 d-flex justify-content-center align-items-center">
+            <button type="submit" className="btn_showTime">SHOW TIME</button>
           </div>
         </form>
       </div>
