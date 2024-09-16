@@ -52,6 +52,7 @@ const Header = () => {
               background="#007bff"
               hoverBackground="white"
               color="black"
+              onClick={() => navigate('/patientList')}
             >
               Patient
             </Button>

@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { Login, Register, Header } from './index.js'
-import Home from './Pages/User/Home.jsx';
-import './assets/css/minh.css';
-import './assets/css/an.css';
-import Appoiments from './Pages/User/Appoiments.jsx';
-import Contact from './Pages/User/Contact.jsx';
+import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Login, Register, Header } from "./index.js";
+import Home from "./Pages/User/Home.jsx";
+import "./assets/css/minh.css";
+import "./assets/css/an.css";
+import Appoiments from "./Pages/User/Appoiments.jsx";
+import Contact from "./Pages/User/Contact.jsx";
 import UserContext from "./Context/UserContext.js";
-import Footer from './Components/Footer/Footer.jsx';
+import Footer from "./Components/Footer/Footer.jsx";
+import PatientList from "./Pages/Doctor/PatientList.jsx";
+import ExportMedicine from "./Pages/Doctor/ExportMedicine.jsx";
 function App() {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
@@ -19,27 +21,24 @@ function App() {
       .catch((error) => console.error("Có lỗi xảy ra:", error));
   }, []);
 
-  useEffect(() => {
-    fetch("http://localhost:8000/api/userData")
-      .then((response) => response.json())
-      .then((data) => setUser(data))
-      .catch((error) => console.error("Có lỗi xảy ra:", error));
-  }, [user]);
-
   return (
     <>
       <UserContext.Provider value={{ user, setUser }}>
         <Header />
         <Routes>
-          {/* {user == "doctor" ? (
+        {user ? (
+            user.role === "doctor" ? (
+              <>
             <Route path="/exportMedicine" element={<ExportMedicine />} />
-          ) : null} */}
-          {user === null ? (
+            <Route path="/patientList" element={<PatientList />} />
+              </>
+            ) : null
+          ) : (
             <>
               <Route path="/Login" element={<Login />} />
               <Route path="/Register" element={<Register />} />
             </>
-          ) : null}
+          )}
 
           <Route path="/" element={<Home />} />
           <Route path="/appointment" element={<Appoiments />} />

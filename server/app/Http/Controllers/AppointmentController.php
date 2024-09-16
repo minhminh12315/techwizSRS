@@ -93,4 +93,14 @@ class AppointmentController extends Controller
     {
         //
     }
+
+    public function patientList()
+    {
+        $appointments = Appointment::all();
+        Log::info($appointments);
+        return response()->json([
+            'data' => $appointments
+        ]);
+
+    }
 }

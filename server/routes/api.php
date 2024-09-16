@@ -25,5 +25,8 @@ Route::get('/userData', [ApiController::class, 'userData']);
 Route::get('/docterList', [ApiController::class, 'docterList']);
 
 Route::post('/appointments', [AppointmentController::class, 'store']);
+Route::get('/patientList', [AppointmentController::class, 'patientList']);
 
 Route::post('/feedback', [FeedbackController::class, 'store']);
+
+Route::get('/medicines', [MedicineController::class, 'index']);
