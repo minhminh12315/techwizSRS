@@ -12,14 +12,20 @@ const Header = () => {
   const { user, setUser } = useContext(UserContext);
   return (
     <div className="header-container">
-      <div className="header-logo">
+      <div className="header-logo" onClick={() => navigate('/')}>
         <img src={logo} alt="logo-home" />
       </div>
       <div className="header-nav">
-        <ul className="nav-list">
-          <li className="nav-item">About</li>
-          <li className="nav-item">Contact</li>
-          <li className="nav-item">Appointments</li>
+        <ul className="nav-list gap-5">
+          <li className="nav-item" onClick={() => navigate('/about')}>
+            <h4>About</h4>
+          </li>
+          <li className="nav-item" onClick={() => navigate('/contact')}>
+            <h4>Contact</h4>
+          </li>
+          <li className="nav-item" onClick={() => navigate('/appointment')}>
+            <h4>Appointments</h4>
+          </li>
         </ul>
       </div>
       <div className="header-actions">

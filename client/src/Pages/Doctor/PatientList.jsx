@@ -49,7 +49,6 @@ const PatientList = () => {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Age</th>
               <th>Appointment Date</th>
               <th>Actions</th>
             </tr>
@@ -58,7 +57,6 @@ const PatientList = () => {
             {patientList.map((patient, index) => (
               <tr key={index}>
                 <td>{patient.name}</td>
-                <td>{patient.age}</td>
                 <td>{new Date(patient.appointment_date).toLocaleDateString()}</td>
                 <td>
                   <button
