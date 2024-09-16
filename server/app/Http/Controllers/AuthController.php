@@ -49,27 +49,28 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-{
-    $fields = $request->validate([
-        'name' => 'required|string',
-        'password' => 'required|string',
-    ]);
+    {
+        $fields = $request->validate([
+            'name' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
-    $user = User::where('name', $fields['name'])->first();
+        $user = User::where('name', $fields['name'])->first();
 
-    if (!$user || !Hash::check($fields['password'], $user->password)) {
-        return response([
-            'message' => 'Bad credentials',
-        ], 401);
-    } else {
-        // Tạo token cho user
-        $token = $user->createToken('auth_token')->plainTextToken;
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'Bad credentials',
+            ], 401);
+        } else {
+            // Tạo token cho user
+            $token = $user->createToken('auth_token')->plainTextToken;
 
-        // Trả về phản hồi và bao gồm token trong JSON response
-        return response([
-            'user' => $user,
-            'token' => $token, // Trả về token
-        ], 201);
+            // Trả về phản hồi và bao gồm token trong JSON response
+            return response([
+                'user' => $user,
+                'token' => $token, // Trả về token
+            ], 201);
+        }
     }
 
     public function checkUsername(Request $request)
