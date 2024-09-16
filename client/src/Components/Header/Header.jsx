@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { logo } from "../../assets/index";
 import Button from "../Button/Button";
+import { HiBars3CenterLeft } from "react-icons/hi2";
 import { IoPersonOutline } from "react-icons/io5";
 import { CiLock } from "react-icons/ci";
 import "./Header.scss";

@@ -7,7 +7,6 @@ import "./assets/css/an.css";
 import Appoiments from "./Pages/User/Appoiments.jsx";
 import Contact from "./Pages/User/Contact.jsx";
 import UserContext from "./Context/UserContext.js";
-import Footer from "./Components/Footer/Footer.jsx";
 import PatientList from "./Pages/Doctor/PatientList.jsx";
 import ExportMedicine from "./Pages/Doctor/ExportMedicine.jsx";
 import Setting from "./Pages/Account/Setting.jsx";
