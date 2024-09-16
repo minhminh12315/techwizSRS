@@ -2,12 +2,16 @@ import React from 'react';
 import { logo } from '../../assets/index';
 import Button from '../Button/Button';
 import { IoPersonOutline } from 'react-icons/io5';
+import { HiBars3CenterLeft } from "react-icons/hi2";
 import { CiLock } from 'react-icons/ci';
 import './Header.scss';
 
 const Header = () => {
   return (
     <div className='header-container'>
+      <div className='header-menu-icon'>
+        <HiBars3CenterLeft size={50}/>
+      </div>
       <div className='header-logo'>
         <img src={logo} alt="logo-home" />
       </div>
