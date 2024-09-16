@@ -23,8 +23,8 @@ const Header = () => {
         </ul>
       </div>
       <div className='header-actions'>
-        <Button icon={IoPersonOutline} background="#007bff" hoverBackground="white" color="black">Register</Button>
-        <Button icon={CiLock} background="#007bff" hoverBackground="white" color="white" hoverColor="white">Login</Button>
+        <Button icon={IoPersonOutline} color="black" background= '#0E82FD' hoverBackground = 'white' hoverColor= 'white'>Register</Button>
+        <Button icon={CiLock} color= 'white' border= '1px solid #0E82FD' hoverColor= '#0E82FD'>Login</Button>
       </div>
     </div>
   );
