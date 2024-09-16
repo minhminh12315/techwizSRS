@@ -8,6 +8,10 @@ use App\Http\Controllers\FeedbackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+Route::middleware('auth:sanctum')->get('/protected-route', function (Request $request) {
+    return response()->json(['message' => 'You are authenticated']);
+});
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -30,3 +34,5 @@ Route::get('/patientList', [AppointmentController::class, 'patientList']);
 Route::post('/feedback', [FeedbackController::class, 'store']);
 
 Route::get('/medicines', [MedicineController::class, 'index']);
+
+Route::get('/profile', [AuthController::class, 'profile']);

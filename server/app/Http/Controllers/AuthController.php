@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
+    public function profile(Request $request)
+    {
+        Log::info(Auth::user());
+        return response()->json([
+            'user' => Auth::user(),
+        ]);
+    }
     public function register(Request $request)
     {
         try {
@@ -21,20 +28,20 @@ class AuthController extends Controller
                 'phone' => 'required|string',
                 'address' => 'required|string',
             ]);
-        
+
             Log::info($fields);
-        
+
             $user = User::create($fields);
-        
+
             $token = $user->createToken($request->name);
-        
+
             return response([
                 'user' => $user,
                 'token' => $token->plainTextToken,
             ], 201);
         } catch (\Exception $e) {
             Log::error('Error creating user: ' . $e->getMessage());
-        
+
             return response([
                 'error' => 'An error occurred while creating the user.',
             ], 500);
@@ -42,27 +49,27 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $fields = $request->validate([
-            'name' => 'required|string',
-            'password' => 'required|string',
-        ]);
+{
+    $fields = $request->validate([
+        'name' => 'required|string',
+        'password' => 'required|string',
+    ]);
 
-        $user = User::where('name', $fields['name'])->first();
+    $user = User::where('name', $fields['name'])->first();
 
-        if (!$user || !Hash::check($fields['password'], $user->password)) {
-            return response([
-                'message' => 'Bad credentials',
-            ], 401);
-        } else {
-            $token = $user->createToken($request->name);
-            Auth::login($user);
+    if (!$user || !Hash::check($fields['password'], $user->password)) {
+        return response([
+            'message' => 'Bad credentials',
+        ], 401);
+    } else {
+        // Tạo token cho user
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-            return response([
-                'user' => $user,
-                'token' => $token->plainTextToken,
-            ], 201);
-        }
+        // Trả về phản hồi và bao gồm token trong JSON response
+        return response([
+            'user' => $user,
+            'token' => $token, // Trả về token
+        ], 201);
     }
 
     public function checkUsername(Request $request)

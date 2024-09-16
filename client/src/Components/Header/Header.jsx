@@ -27,10 +27,11 @@ const Header = () => {
           <>
             <Button
               icon={IoPersonOutline}
-              background="#007bff"
-              hoverBackground="white"
               color="black"
-              onClick={() => navigate('/Register')}
+              background="#0E82FD"
+              hoverBackground="white"
+              hoverColor="white"
+              onClick={() => navigate("/Register")}
             >
               Register
             </Button>
@@ -38,9 +39,9 @@ const Header = () => {
               icon={CiLock}
               background="#007bff"
               hoverBackground="white"
-              color="white"
+              color="black"
               hoverColor="white"
-              onClick={() => navigate('/Login')}
+              onClick={() => navigate("/Login")}
             >
               Login
             </Button>
@@ -52,7 +53,7 @@ const Header = () => {
               background="#007bff"
               hoverBackground="white"
               color="black"
-              onClick={() => navigate('/patientList')}
+              onClick={() => navigate("/patientList")}
             >
               Patient
             </Button>
@@ -61,6 +62,7 @@ const Header = () => {
               background="#007bff"
               hoverBackground="white"
               color="black"
+              onClick={() => navigate("/setting")}
             >
               Profile
             </Button>

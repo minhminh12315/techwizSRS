@@ -24,26 +24,27 @@ const Login = (props) => {
             console.error("Có lỗi trong biểu mẫu.");
             return;
         }
-
+    
         const isUsernameValid = await checkUsername();
         if (!isUsernameValid) {
             console.error("Tên tài khoản không tồn tại.");
             return;
         }
-
+    
         console.log("Sign In");
         axios.post('http://localhost:8000/api/login', {
             name: formData.name,
             password: formData.password
-        })
+          })
             .then(response => {
-                console.log('Login successful:', response.data);
-                setUser(response.data.user);
-                localStorage.setItem('user', JSON.stringify(response.data.user));
-                navigate('/');
+              console.log('Login successful:', response.data);
+              setUser(response.data.user);
+              // Lưu thông tin user vào localStorage
+              localStorage.setItem('user', JSON.stringify(response.data.user));
+              navigate('/');
             })
             .catch(error => {
-                console.error('There was an error logging in:', error);
+              console.error('There was an error logging in:', error);
             });
     };
 

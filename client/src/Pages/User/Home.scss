@@ -13,9 +13,10 @@
   
   .content-container {
     position: absolute;
-    width: 60%;
+    width: 80%;
+    max-width: 600px;
     top: 50%;
-    left: 70%;
+    left: 75%; 
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 10; 
@@ -24,15 +25,16 @@
   h3 {
     color: #705539;
     letter-spacing: 2px;
+    font-size: 1.5rem; 
   }
   
   h2 {
     color: black;
-    font-size: 60px;
+    font-size: 3.5rem; 
   }
   
   .content-container img {
-    max-width: 15%;
+    max-width: 100px; 
     height: auto;
   }
   
@@ -40,23 +42,70 @@
   .content-container h2,
   .content-container button {
     margin: 0;
-    padding: 15px;
+    padding: 10px; 
   }
   
   .content-container button {
-    padding: 15px 70px;
+    padding: 12px 50px;
     background-color: white; 
     color: #705539;
     border: none;
     cursor: pointer;
     border: 2px solid #705539;
     letter-spacing: 2px;
-    margin-top: 30px;
-    transition: background-color 0.5s ease, color 0.5s ease; /* Thêm hiệu ứng chuyển động */
+    margin-top: 20px; 
+    transition: background-color 0.5s ease, color 0.5s ease; 
   }
   
   .content-container button:hover {
     background-color: #705539;
     color: white;
+  }
+  
+  @media (max-width: 768px) {
+    
+  
+    h3 {
+      font-size: 1.2rem; 
+    }
+  
+    h2 {
+      font-size: 2rem; 
+    }
+  
+    .content-container img {
+      max-width: 80px; 
+    }
+  
+    .content-container button {
+      padding: 10px 40px;
+      margin-top: 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .content-container {
+        width: 90%;
+        max-width: none;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+  
+    h3 {
+      font-size: 1rem; 
+    }
+  
+    h2 {
+      font-size: 1.5rem; 
+    }
+  
+    .content-container img {
+      max-width: 60px;
+    }
+  
+    .content-container button {
+      padding: 8px 30px;
+      margin-top: 10px; 
+    }
   }
   

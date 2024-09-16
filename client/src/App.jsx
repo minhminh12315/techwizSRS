@@ -10,9 +10,17 @@ import UserContext from "./Context/UserContext.js";
 import Footer from "./Components/Footer/Footer.jsx";
 import PatientList from "./Pages/Doctor/PatientList.jsx";
 import ExportMedicine from "./Pages/Doctor/ExportMedicine.jsx";
+import Setting from "./Pages/Account/Setting.jsx";
 function App() {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:8000/api/data")
@@ -20,6 +28,8 @@ function App() {
       .then((data) => setData(data))
       .catch((error) => console.error("Có lỗi xảy ra:", error));
   }, []);
+
+  
 
   return (
     <>
@@ -43,6 +53,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/appointment" element={<Appoiments />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/setting" element={<Setting />} />
         </Routes>
       </UserContext.Provider>
     </>
