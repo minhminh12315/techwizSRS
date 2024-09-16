@@ -1,0 +1,62 @@
+.Home-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; 
+    overflow: hidden;
+  }
+  
+  .Home-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .content-container {
+    position: absolute;
+    width: 60%;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10; 
+  }
+  
+  h3 {
+    color: #705539;
+    letter-spacing: 2px;
+  }
+  
+  h2 {
+    color: black;
+    font-size: 60px;
+  }
+  
+  .content-container img {
+    max-width: 15%;
+    height: auto;
+  }
+  
+  .content-container h3,
+  .content-container h2,
+  .content-container button {
+    margin: 0;
+    padding: 15px;
+  }
+  
+  .content-container button {
+    padding: 15px 70px;
+    background-color: white; 
+    color: #705539;
+    border: none;
+    cursor: pointer;
+    border: 2px solid #705539;
+    letter-spacing: 2px;
+    margin-top: 30px;
+    transition: background-color 0.5s ease, color 0.5s ease; /* Thêm hiệu ứng chuyển động */
+  }
+  
+  .content-container button:hover {
+    background-color: #705539;
+    color: white;
+  }
+  

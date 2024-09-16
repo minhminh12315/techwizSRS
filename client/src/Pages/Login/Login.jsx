@@ -1,42 +1,55 @@
 import { useState } from 'react';
+import useLoginForm from '../../Hooks/LoginResgiter/useLoginForm.js';
 import './Login.scss';
-import login from '../../assets/login.jpg';
-import tick from '../../assets/tick.png';
-import { Link } from 'react-router-dom';
+import { login, tick } from '../../assets/index.js';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
-
     const navigate = useNavigate();
-    
+    const { formData, errors, errorMessages, handleChange, validateForm, checkUsername } = useLoginForm();
     const [showPassword, setShowPassword] = useState(false);
+    const [showForgotPasswordDialog, setShowForgotPasswordDialog] = useState(false);
+
+    const submitSignIn = async () => {
+        if (!validateForm()) {
+            console.error("Có lỗi trong biểu mẫu.");
+            return;
+        }
+
+        const isUsernameValid = await checkUsername();
+        if (!isUsernameValid) {
+            console.error("Tên tài khoản không tồn tại.");
+            return;
+        }
+
+        console.log("Sign In");
+        axios.post('http://localhost:8000/api/login', {
+            name: formData.name,
+            password: formData.password
+        })
+            .then(response => {
+                console.log('Login successful:', response.data);
+                navigate('/');
+            })
+            .catch(error => {
+                console.error('There was an error logging in:', error);
+            });
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
-    // const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [password, setPassword] = useState('');
+    const handleForgotPasswordClick = (e) => {
+        e.preventDefault();
+        setShowForgotPasswordDialog(true);
+    };
 
-    const submitSignIn = () => {
-        console.log("Sign In");
-        axios.post('http://localhost:8000/api/login', {
-            name: name,
-            password: password
-        })
-        .then(response => {
-            console.log('Login successful:', response.data);
-            
-            navigate('/')
-        })
-        .catch(error => {
-            console.error('There was an error logging in:', error);
-        });
-    }
+    const handleCloseDialog = () => {
+        setShowForgotPasswordDialog(false);
+    };
 
     return (
         <div className='login-container'>
@@ -57,33 +70,30 @@ const Login = () => {
                             <input
                                 type="text"
                                 name="name"
-                                onChange={(e) => setName(e.target.value)}
-                                value={name}
+                                onChange={handleChange}
+                                value={formData.name}
+                                className={errors.name ? 'invalid' : ''}
                             />
+                            {errors.name && (
+                                <div className="error-message">{errorMessages.name}</div>
+                            )}
                         </div>
-                        {/* <div className='input-group'>
-                            <label>Email Address</label>
-                            <input
-                                type="text"
-                                name="email"
-                                onChange={(e) => setEmail(e.target.value)}
-                                value={email}
-                            />
-                        </div> */}
                         <div className='input-group'>
                             <label>Password</label>
                             <div className='password-wrapper'>
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="password"
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    value={password}
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    className={errors.password ? 'invalid' : ''}
                                 />
                                 <span onClick={togglePasswordVisibility} className="eye-icon">
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </span>
                             </div>
-                            <a href="#">Forgot your password?</a>
+                            {errors.password && <div className="error-message">{errorMessages.password}</div>}
+                            <a href="#" onClick={handleForgotPasswordClick}>Forgot your password?</a>
                         </div>
                         <div className='submit-button'>
                             <button onClick={submitSignIn}>Sign in</button>
@@ -114,14 +124,25 @@ const Login = () => {
                         </div>
                         <div className='create-account-button'>
                             <Link to="/Register">
-                                <button>
-                                    Create Account
-                                </button>
+                                <button>Create Account</button>
                             </Link>
                         </div>
                     </div>
                 </div>
             </div>
+            {showForgotPasswordDialog && (
+                <div className="forgot-password-dialog">
+                    <div className="dialog-content">
+                        <h2>Forgot Password</h2>
+                        <p>
+                        Enter the email address you registered with RIMOWA and <br />
+                        well tell you how to reset your password.</p>
+                        <input type="email" placeholder="Your email" />
+                        <button onClick={handleCloseDialog}>Close</button>
+                    </div>
+                    <div className="dialog-overlay" onClick={handleCloseDialog}></div>
+                </div>
+            )}
         </div>
     );
 };

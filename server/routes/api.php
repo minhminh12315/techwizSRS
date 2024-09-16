@@ -17,6 +17,8 @@ Route::apiResource('medicines', MedicineController::class);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/check-username', [AuthController::class, 'checkUsername']);
+
 
 Route::get('/data', [ApiController::class, 'getData']);
 Route::get('/docterList', [ApiController::class, 'docterList']);
