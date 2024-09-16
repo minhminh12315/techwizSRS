@@ -90,6 +90,16 @@
         box-sizing: border-box;
     }
 
+    .input-group input.invalid {
+        border: 1px solid red;
+    }
+
+    .input-group .error-message {
+        color: red;
+        font-size: 0.875em;
+        margin-top: 0.25em;
+    }
+
     .form-title {
         p {
             margin-top: 10px;

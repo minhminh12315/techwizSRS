@@ -1,43 +1,44 @@
 import { useState } from 'react';
 import './Register.scss';
-import login from '../../assets/login.jpg';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
+import { login } from '../../assets/index.js'
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import useResgiterForm from '../../Hooks/LoginResgiter/useResgiterForm.js';
 import axios from 'axios';
-import { redirect } from 'react-router-dom';
-import Home from '../User/Home';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const navigate = useNavigate();
 
+    const { formData, errors, errorMessages, handleChange, validateForm } = useResgiterForm();
+
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [phone, setPhone] = useState('');
-    const [address, setAddress] = useState('');
 
     const submitRegister = () => {
+
+        if (!validateForm()) {
+            console.error("Có lỗi trong biểu mẫu.");
+            return;
+        }
+
         console.log("Register");
         axios.post('http://localhost:8000/api/register', {
-            name: name,
-            email: email,
-            password: password,
-            password_confirmation: confirmPassword,
-            phone: phone,
-            address: address
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            password_confirmation: formData.confirmPassword,
+            phone: formData.phone,
+            address: formData.address
         })
-        .then(response => {
-            console.log('Register successful:', response.data);
+            .then(response => {
+                console.log('Register successful:', response.data);
 
-            navigate('/')
-        })
-        .catch(error => {
-            console.error('There was an error registing in:', error);
-        });
+                navigate('/')
+            })
+            .catch(error => {
+                console.error('There was an error registing in:', error);
+            });
     }
 
 
@@ -48,6 +49,7 @@ const Register = () => {
     const toggleConfirmPasswordVisibility = () => {
         setShowConfirmPassword(!showConfirmPassword);
     };
+
 
     return (
         <div className='resgiter-container'>
@@ -64,22 +66,26 @@ const Register = () => {
                     </div>
                     <div className='form-body'>
                         <div className='input-group'>
-                            <label>Name Address</label>
+                            <label>Name</label>
                             <input
                                 type="text"
                                 name="name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={formData.name}
+                                onChange={handleChange}
+                                className={errors.name ? 'invalid' : ''}
                             />
+                            {errors.name && <div className="error-message">{errorMessages.name}</div>}
                         </div>
                         <div className='input-group'>
                             <label>Email Address</label>
                             <input
                                 type="text"
                                 name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={formData.email}
+                                onChange={handleChange}
+                                className={errors.email ? 'invalid' : ''}
                             />
+                            {errors.email && <div className="error-message">{errorMessages.email}</div>}
                         </div>
                         <div className='input-group'>
                             <label>Password</label>
@@ -87,13 +93,15 @@ const Register = () => {
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    className={errors.password ? 'invalid' : ''}
                                 />
                                 <span onClick={togglePasswordVisibility} className="eye-icon">
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </span>
                             </div>
+                            {errors.password && <div className="error-message">{errorMessages.password}</div>}
                         </div>
                         <div className='input-group'>
                             <label>Confirm Password</label>
@@ -101,35 +109,41 @@ const Register = () => {
                                 <input
                                     type={showConfirmPassword ? "text" : "password"}
                                     name="confirmPassword"
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    className={errors.confirmPassword ? 'invalid' : ''}
                                 />
                                 <span onClick={toggleConfirmPasswordVisibility} className="eye-icon">
                                     {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                                 </span>
                             </div>
+                            {errors.confirmPassword && <div className="error-message">{errorMessages.confirmPassword}</div>}
                         </div>
                         <div className='input-group'>
                             <label>Phone</label>
                             <input
                                 type="text"
                                 name="phone"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
+                                value={formData.phone}
+                                onChange={handleChange}
+                                className={errors.phone ? 'invalid' : ''}
                             />
+                            {errors.phone && <div className="error-message">{errorMessages.phone}</div>}
                         </div>
                         <div className='input-group'>
                             <label>Address</label>
                             <input
                                 type="text"
                                 name="address"
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
+                                value={formData.address}
+                                onChange={handleChange}
+                                className={errors.address ? 'invalid' : ''}
                             />
+                            {errors.address && <div className="error-message">{errorMessages.address}</div>}
                         </div>
                         <div className='submit-button'>
                             <button
-                            onClick={submitRegister}
+                                onClick={submitRegister}
                             >Create Account</button>
                         </div>
                     </div>

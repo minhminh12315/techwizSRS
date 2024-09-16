@@ -63,6 +63,18 @@ class AuthController extends Controller
         }
     }
 
+    public function checkUsername(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $name = $request->input('name');
+        $userExists = User::where('name', $name)->exists();
+
+        return response()->json(['exists' => $userExists]);
+    }
+
     public function logout(Request $request)
     {
         return 'logout';
