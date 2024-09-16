@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import useLoginForm from '../../Hooks/LoginResgiter/useLoginForm.js';
 import './Login.scss';
 import { login, tick } from '../../assets/index.js';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import UserContext from '../../Context/UserContext.js';
 
-const Login = () => {
+const Login = (props) => {
+    
+
+    const { user, setUser } = useContext(UserContext);
+
     const navigate = useNavigate();
+
+
     const { formData, errors, errorMessages, handleChange, validateForm, checkUsername } = useLoginForm();
     const [showPassword, setShowPassword] = useState(false);
     const [showForgotPasswordDialog, setShowForgotPasswordDialog] = useState(false);
@@ -31,6 +38,8 @@ const Login = () => {
         })
             .then(response => {
                 console.log('Login successful:', response.data);
+                setUser(response.data.user);
+                localStorage.setItem('user', JSON.stringify(response.data.user));
                 navigate('/');
             })
             .catch(error => {

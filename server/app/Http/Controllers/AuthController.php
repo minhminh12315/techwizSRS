@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -55,6 +56,7 @@ class AuthController extends Controller
             ], 401);
         } else {
             $token = $user->createToken($request->name);
+            Auth::login($user);
 
             return response([
                 'user' => $user,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ApiController extends Controller
@@ -22,5 +23,20 @@ class ApiController extends Controller
         return response()->json([
             'data' => $doctors
         ]);
+    }
+    public function userData()
+    {
+        if(Auth::user())
+        {
+            if(Auth::user()->role == 'doctor') {
+                return response()->json([
+                    'data' => 'doctor'
+                ]);
+            } elseif(Auth::user()->role == 'customer') {
+                return response()->json([
+                    'data' => 'customer'
+                ]);
+            }
+        }
     }
 }

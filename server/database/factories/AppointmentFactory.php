@@ -17,7 +17,15 @@ class AppointmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'doctor_id' => $this->faker->numberBetween(1, 5), // Giả sử bạn có ít nhất 5 bác sĩ trong bảng users
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'phone' => $this->faker->phoneNumber,
+            'date' => $this->faker->date,
+            'time' => $this->faker->time('H:i:s'),
+            'status' => $this->faker->randomElement(['pending', 'confirmed', 'canceled']),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

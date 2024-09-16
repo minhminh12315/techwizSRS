@@ -21,6 +21,7 @@ Route::post('/check-username', [AuthController::class, 'checkUsername']);
 
 
 Route::get('/data', [ApiController::class, 'getData']);
+Route::get('/userData', [ApiController::class, 'userData']);
 Route::get('/docterList', [ApiController::class, 'docterList']);
 
 Route::post('/appointments', [AppointmentController::class, 'store']);
