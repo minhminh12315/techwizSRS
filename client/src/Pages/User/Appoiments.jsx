@@ -42,7 +42,7 @@ const Appoiments = () => {
 
   return (
     <>
-      <div className="appointment_title_container">
+      <div className="main_title_section_container">
         <div className="d-flex justify-content-center align-items-center flex-column gap-4">
           <div>
             <span className="text-secondary">HOME - </span>
@@ -127,7 +127,7 @@ const Appoiments = () => {
             </div>
           </div>
           <div className="w-100 d-flex justify-content-center align-items-center">
-            <button type="submit" className="btn_showTime">SHOW TIME</button>
+            <button type="submit" className="btn_secondary_custom mt-4">SHOW TIME</button>
           </div>
         </form>
       </div>

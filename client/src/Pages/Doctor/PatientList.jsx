@@ -42,35 +42,38 @@ const PatientList = () => {
     }
   }, [patientList]);
   return (
-    <>
+    <div className="container">
       <h1>Patient List</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Appointment Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {patientList.map((patient, index) => (
-            <tr key={index}>
-              <td>{patient.name}</td>
-              <td>{patient.age}</td>
-              <td>{new Date(patient.appointment_date).toLocaleDateString()}</td>
-              <td>
-                <button
-                    onClick={() => {
-                        navigate('/exportMedicine');
-                    }}
-                >Export Medicine</button>
-              </td>
+      <div className="table-responsive">
+        <table className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Appointment Date</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
+          </thead>
+          <tbody>
+            {patientList.map((patient, index) => (
+              <tr key={index}>
+                <td>{patient.name}</td>
+                <td>{patient.age}</td>
+                <td>{new Date(patient.appointment_date).toLocaleDateString()}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      navigate('/exportMedicine');
+                    }}
+                    className="btn_secondary_custom"
+                  >Export Medicine</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 
