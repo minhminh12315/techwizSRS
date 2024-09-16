@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import useLoginForm from '../../Hooks/LoginResgiter/useLoginForm.js';
 import './Login.scss';
-import { login, tick } from '../../assets/index.js'
-import { Link } from 'react-router-dom';
+import { login, tick } from '../../assets/index.js';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate();
     const { formData, errors, errorMessages, handleChange, validateForm, checkUsername } = useLoginForm();
     const [showPassword, setShowPassword] = useState(false);
+    const [showForgotPasswordDialog, setShowForgotPasswordDialog] = useState(false);
 
     const submitSignIn = async () => {
         if (!validateForm()) {
@@ -43,6 +42,15 @@ const Login = () => {
         setShowPassword(!showPassword);
     };
 
+    const handleForgotPasswordClick = (e) => {
+        e.preventDefault();
+        setShowForgotPasswordDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setShowForgotPasswordDialog(false);
+    };
+
     return (
         <div className='login-container'>
             <div className='login-image'>
@@ -67,9 +75,7 @@ const Login = () => {
                                 className={errors.name ? 'invalid' : ''}
                             />
                             {errors.name && (
-                                <>
-                                    <div className="error-message">{errorMessages.name}</div>
-                                </>
+                                <div className="error-message">{errorMessages.name}</div>
                             )}
                         </div>
                         <div className='input-group'>
@@ -87,7 +93,7 @@ const Login = () => {
                                 </span>
                             </div>
                             {errors.password && <div className="error-message">{errorMessages.password}</div>}
-                            <a href="#">Forgot your password?</a>
+                            <a href="#" onClick={handleForgotPasswordClick}>Forgot your password?</a>
                         </div>
                         <div className='submit-button'>
                             <button onClick={submitSignIn}>Sign in</button>
@@ -118,14 +124,25 @@ const Login = () => {
                         </div>
                         <div className='create-account-button'>
                             <Link to="/Register">
-                                <button>
-                                    Create Account
-                                </button>
+                                <button>Create Account</button>
                             </Link>
                         </div>
                     </div>
                 </div>
             </div>
+            {showForgotPasswordDialog && (
+                <div className="forgot-password-dialog">
+                    <div className="dialog-content">
+                        <h2>Forgot Password</h2>
+                        <p>
+                        Enter the email address you registered with RIMOWA and <br />
+                        well tell you how to reset your password.</p>
+                        <input type="email" placeholder="Your email" />
+                        <button onClick={handleCloseDialog}>Close</button>
+                    </div>
+                    <div className="dialog-overlay" onClick={handleCloseDialog}></div>
+                </div>
+            )}
         </div>
     );
 };

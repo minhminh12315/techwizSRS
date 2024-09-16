@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Login, Register } from './index.js'
+import { Login, Register, Header } from './index.js'
 import Home from './Pages/User/Home.jsx';
 
 function App() {
@@ -19,6 +19,8 @@ function App() {
                 <Route path='/Login' element={<Login />} />
                 <Route path='/Register' element={<Register />}/>
                 <Route path='/' element={<Home />} />
+                <Route path='/Header' element={<Header />} />
+                <Route path='/bg1' element={<Header />} />
             </Routes>
         </>
     );
