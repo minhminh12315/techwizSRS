@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import useLoginForm from '../../Hooks/LoginResgiter/useLoginForm.js';
 import './Login.scss';
 import { login, tick } from '../../assets/index.js';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import UserContext from '../../Context/UserContext.js';
 
-const Login = () => {
+const Login = (props) => {
+    
+
+    const { user, setUser } = useContext(UserContext);
+
     const navigate = useNavigate();
+
+
     const { formData, errors, errorMessages, handleChange, validateForm, checkUsername } = useLoginForm();
     const [showPassword, setShowPassword] = useState(false);
     const [showForgotPasswordDialog, setShowForgotPasswordDialog] = useState(false);
@@ -17,24 +24,27 @@ const Login = () => {
             console.error("Có lỗi trong biểu mẫu.");
             return;
         }
-
+    
         const isUsernameValid = await checkUsername();
         if (!isUsernameValid) {
             console.error("Tên tài khoản không tồn tại.");
             return;
         }
-
+    
         console.log("Sign In");
         axios.post('http://localhost:8000/api/login', {
             name: formData.name,
             password: formData.password
-        })
+          })
             .then(response => {
-                console.log('Login successful:', response.data);
-                navigate('/');
+              console.log('Login successful:', response.data);
+              setUser(response.data.user);
+              // Lưu thông tin user vào localStorage
+              localStorage.setItem('user', JSON.stringify(response.data.user));
+              navigate('/');
             })
             .catch(error => {
-                console.error('There was an error logging in:', error);
+              console.error('There was an error logging in:', error);
             });
     };
 

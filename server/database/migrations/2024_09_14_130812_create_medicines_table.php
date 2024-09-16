@@ -14,7 +14,12 @@ return new class extends Migration
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->string('ingredient');
+            $table->string('type');
+            $table->text('how_to_use');
+            $table->date('expiration_date');
+            $table->string('warning');
+            $table->string('placeOfProduction');
             $table->timestamps();
         });
     }

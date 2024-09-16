@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
+    public function profile(Request $request)
+    {
+        Log::info(Auth::user());
+        return response()->json([
+            'user' => Auth::user(),
+        ]);
+    }
     public function register(Request $request)
     {
         try {
@@ -20,20 +28,20 @@ class AuthController extends Controller
                 'phone' => 'required|string',
                 'address' => 'required|string',
             ]);
-        
+
             Log::info($fields);
-        
+
             $user = User::create($fields);
-        
+
             $token = $user->createToken($request->name);
-        
+
             return response([
                 'user' => $user,
                 'token' => $token->plainTextToken,
             ], 201);
         } catch (\Exception $e) {
             Log::error('Error creating user: ' . $e->getMessage());
-        
+
             return response([
                 'error' => 'An error occurred while creating the user.',
             ], 500);
@@ -54,11 +62,13 @@ class AuthController extends Controller
                 'message' => 'Bad credentials',
             ], 401);
         } else {
-            $token = $user->createToken($request->name);
+            // Tạo token cho user
+            $token = $user->createToken('auth_token')->plainTextToken;
 
+            // Trả về phản hồi và bao gồm token trong JSON response
             return response([
                 'user' => $user,
-                'token' => $token->plainTextToken,
+                'token' => $token, // Trả về token
             ], 201);
         }
     }

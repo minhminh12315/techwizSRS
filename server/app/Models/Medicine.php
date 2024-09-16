@@ -13,4 +13,9 @@ class Medicine extends Model
         'name',
         'description',
     ];
+
+    public function healths()
+    {
+        return $this->belongsToMany(Health::class, 'medicine_of_healths');
+    }
 }

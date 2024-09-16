@@ -6,6 +6,7 @@ use App\Models\Medicine;
 use App\Http\Requests\StoreMedicineRequest;
 use App\Http\Requests\UpdateMedicineRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class MedicineController extends Controller
 {
@@ -14,7 +15,11 @@ class MedicineController extends Controller
      */
     public function index()
     {
-        return Medicine::all();
+        $medicines = Medicine::all();
+        Log::info($medicines);
+        return response()->json([
+            'data' => $medicines
+        ]);
     }
 
     /**
