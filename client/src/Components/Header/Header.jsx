@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <div className='header-container'>
       <div className='header-menu-icon'>
-        <HiBars3CenterLeft size={50}/>
+        <HiBars3CenterLeft size={50} color='#0E82FD'/>
       </div>
       <div className='header-logo'>
         <img src={logo} alt="logo-home" />
