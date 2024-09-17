@@ -33,7 +33,6 @@ const Register = () => {
         })
             .then(response => {
                 console.log('Register successful:', response.data);
-
                 navigate('/')
             })
             .catch(error => {

@@ -41,7 +41,7 @@ const StyledButton = styled.button`
   }
 
   &:hover {
-    color: ${props => props.hoverColor || 'black'}; /* Hover color added */
+    color: ${props => props.hoverColor || 'black'}; 
   }
 
   svg {

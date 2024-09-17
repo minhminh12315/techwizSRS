@@ -10,6 +10,7 @@ import UserContext from "./Context/UserContext.js";
 import PatientList from "./Pages/Doctor/PatientList.jsx";
 import ExportMedicine from "./Pages/Doctor/ExportMedicine.jsx";
 import Setting from "./Pages/Account/Setting.jsx";
+import Footer from "./Components/Footer/Footer.jsx";
 function App() {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);

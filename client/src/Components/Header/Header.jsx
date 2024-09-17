@@ -6,7 +6,7 @@ import { IoPersonOutline } from "react-icons/io5";
 import { CiLock } from "react-icons/ci";
 import "./Header.scss";
 import UserContext from "../../Context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -14,10 +14,10 @@ const Header = () => {
   return (
     <div className='header-container'>
       <div className='header-menu-icon'>
-        <HiBars3CenterLeft size={50} color='#0E82FD'/>
+        <HiBars3CenterLeft size={50} color='#0E82FD' />
       </div>
       <div className='header-logo'>
-        <img src={logo} alt="logo-home" />
+        <Link to='/'><img src={logo} alt="logo-home" /></Link>
       </div>
       <div className="header-nav">
         <ul className="nav-list">
@@ -57,6 +57,7 @@ const Header = () => {
               background="#007bff"
               hoverBackground="white"
               color="black"
+              hoverColor="white"
               onClick={() => navigate("/patientList")}
             >
               Patient
@@ -66,6 +67,7 @@ const Header = () => {
               background="#007bff"
               hoverBackground="white"
               color="black"
+              hoverColor="white"
               onClick={() => navigate("/setting")}
             >
               Profile

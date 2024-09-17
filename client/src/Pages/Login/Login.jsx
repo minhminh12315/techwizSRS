@@ -41,7 +41,7 @@ const Login = (props) => {
               setUser(response.data.user);
               // Lưu thông tin user vào localStorage
               localStorage.setItem('user', JSON.stringify(response.data.user));
-              localStorage.setItem('token', response.data.token);
+              localStorage.setItem('token', response.data.token); // lưu token nó vào
               navigate('/');
             })
             .catch(error => {
