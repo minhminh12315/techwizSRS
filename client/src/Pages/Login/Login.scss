@@ -1,15 +1,20 @@
 .login-container {
-    
     display: grid;
     grid-template-columns: auto auto;
     background: #f7f5f4;
     color: #424242;
+    font-family: 'RimowaGrotesk-Light';
 
     h1,
     p,
     button {
-        font-family: 'RimowaGrotesk-Light';
+       
         font-weight: 300;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #424242;
     }
 
     .login-image {
@@ -79,6 +84,7 @@
 
         button {
             margin-top: 30px;
+          
         }
     }
 
@@ -121,10 +127,31 @@
     
     .dialog-content {
         background: white;
-        height: 300px;
+        width: 30%;
+        height: 450px;
         padding: 20px 40px 40px;
+        
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        .content-icon {
+           text-align: end;
+           cursor: pointer;
+        }
+
+        .content-form {
+            margin-top: 50px;
+
+            p:last-child {
+                text-align: center;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+
+        button,p, input {
+           margin-top: 30px;
+        }
     }
     
     .dialog-overlay {

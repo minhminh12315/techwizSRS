@@ -3,49 +3,49 @@ import useLoginForm from '../../Hooks/LoginResgiter/useLoginForm.js';
 import './Login.scss';
 import { login, tick } from '../../assets/index.js';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { IoMdClose } from "react-icons/io";
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import UserContext from '../../Context/UserContext.js';
 
 const Login = (props) => {
-    
 
     const { user, setUser } = useContext(UserContext);
-
     const navigate = useNavigate();
-
 
     const { formData, errors, errorMessages, handleChange, validateForm, checkUsername } = useLoginForm();
     const [showPassword, setShowPassword] = useState(false);
     const [showForgotPasswordDialog, setShowForgotPasswordDialog] = useState(false);
+    const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [emailSent, setEmailSent] = useState(false);
 
     const submitSignIn = async () => {
         if (!validateForm()) {
             console.error("Có lỗi trong biểu mẫu.");
             return;
         }
-    
+
         const isUsernameValid = await checkUsername();
         if (!isUsernameValid) {
             console.error("Tên tài khoản không tồn tại.");
             return;
         }
-    
+
         console.log("Sign In");
         axios.post('http://localhost:8000/api/login', {
             name: formData.name,
             password: formData.password
-          })
+        })
             .then(response => {
-              console.log('Login successful:', response.data);
-              setUser(response.data.user);
-              // Lưu thông tin user vào localStorage
-              localStorage.setItem('user', JSON.stringify(response.data.user));
-              localStorage.setItem('token', response.data.token); // lưu token nó vào
-              navigate('/');
+                console.log('Login successful:', response.data);
+                setUser(response.data.user);
+                localStorage.setItem('user', JSON.stringify(response.data.user));
+                localStorage.setItem('token', response.data.token);
+                navigate('/');
             })
             .catch(error => {
-              console.error('There was an error logging in:', error);
+                console.error('There was an error logging in:', error);
             });
     };
 
@@ -60,6 +60,24 @@ const Login = (props) => {
 
     const handleCloseDialog = () => {
         setShowForgotPasswordDialog(false);
+        setForgotPasswordEmail('');
+        setEmailError('');
+        setEmailSent(false);
+    };
+
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const handleSendResetInstructions = () => {
+        if (!validateEmail(forgotPasswordEmail)) {
+            setEmailError('Please enter a valid email address.');
+            return;
+        }
+
+        setEmailSent(true);
+        setEmailError('');
     };
 
     return (
@@ -144,14 +162,29 @@ const Login = (props) => {
             {showForgotPasswordDialog && (
                 <div className="forgot-password-dialog">
                     <div className="dialog-content">
-                        <h2>Forgot Password</h2>
-                        <p>
-                        Enter the email address you registered with RIMOWA and <br />
-                        well tell you how to reset your password.</p>
-                        <input type="email" placeholder="Your email" />
-                        <button onClick={handleCloseDialog}>Close</button>
+                        <div className='content-icon'>
+                            <IoMdClose size={30} onClick={handleCloseDialog}/>
+                        </div>
+                        <div className='content-form'>
+                            <h2>Forgot your password ?</h2>
+                            <p>
+                                Enter the email address you registered with RIMOWA and <br />
+                                well tell you how to reset your password.</p>
+                            
+                            <input
+                                type="email"
+                                placeholder="Your email"
+                                value={forgotPasswordEmail}
+                                onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                            />
+                            {emailError && <p className="error-message">{emailError}</p>}
+                            {emailSent && <p className="success-message">Reset instructions sent to your email.</p>}
+                            <button onClick={handleSendResetInstructions}>Send reset instructions</button>
+                            <p onClick={handleCloseDialog}>Cancel</p>
+                        </div>
                     </div>
-                    <div className="dialog-overlay" onClick={handleCloseDialog}></div>
+                    <div className="dialog-overlay"/>
+
                 </div>
             )}
         </div>
